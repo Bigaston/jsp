@@ -2,6 +2,27 @@ let ep_title;
 let pod_title;
 let ep_img;
 let audio_url;
+let ep_duration;
+
+let duration = document.getElementById("audio-duration");
+
+let playbutton = document.getElementById("play");
+playbutton.addEventListener('click', playAudio);
+
+let bar = document.getElementById("progressbar")
+bar.addEventListener("click", changeTime);
+
+let player = document.getElementById("audiosound");
+
+player.addEventListener("canplay", () => {
+	let durationObj = convertHMS(player.duration)
+	duration.innerHTML = durationObj.heure + ":" + durationObj.minute + ":" + durationObj.seconde;
+
+	setInterval(updateTime, 500);
+})
+
+document.getElementsByClassName("timeJump")[0].addEventListener("click", jumpTime)
+document.getElementsByClassName("timeJump")[1].addEventListener("click", jumpTime)
 
 grabInfo();
 
@@ -12,7 +33,8 @@ function grabInfo() {
     ep_title = param.get("ep_title");
     pod_title = param.get("pod_title");
     ep_img = param.get("ep_img");
-    audio_url = param.get("audio_url");
+	audio_url = param.get("audio_url");
+	ep_duration = param.get("ep_duration")
 
     document.getElementById("player").style.setProperty("--bar-color", param.get("bar_color"))
     document.getElementById("player").style.setProperty("--control-color", param.get("control_color"))
@@ -24,36 +46,21 @@ function initPlayer() {
     document.getElementById("eptitle").innerHTML = ep_title;
     document.getElementById("podtitle").innerHTML = pod_title;
     document.getElementById("epimg").src = ep_img;
-    document.getElementById("audiosound").src = audio_url;
+	document.getElementById("audiosound").src = audio_url;
+
+	duration.innerHTML = ep_duration;
 }
-
-let playbutton = document.getElementById("play");
-playbutton.addEventListener('click', playAudio);
-
-let bar = document.getElementById("progressbar")
-bar.addEventListener("click", changeTime);
-
-let player = document.getElementById("audiosound");
-
-let duration = document.getElementById("audio-duration");
-let durationObj = convertHMS(player.duration)
-duration.innerHTML = durationObj.heure + ":" + durationObj.minute + ":" + durationObj.seconde;
-
-document.getElementsByClassName("timeJump")[0].addEventListener("click", jumpTime)
-document.getElementsByClassName("timeJump")[1].addEventListener("click", jumpTime)
-
-setInterval(updateTime, 500);
 
 function playAudio() {
     if (playbutton.classList.contains("fa-play-circle")) {
-    player.play()
-    playbutton.className = "fas fa-pause-circle"
+		player.play()
+		playbutton.className = "fas fa-pause-circle"
     } else {
-    player.pause()
-    playbutton.className = "fas fa-play-circle"
-    }
+		player.pause()
+		playbutton.className = "fas fa-play-circle"
+	}
 
-    playbutton.addEventListener('click', playAudio);
+	playbutton.addEventListener('click', playAudio);
 }
 
 function updateTime() {
@@ -72,8 +79,17 @@ function updateTime() {
 }
 
 function changeTime(event) {
-    var percent = event.offsetX / this.offsetWidth;
-    player.currentTime = percent * player.duration;
+    if (player.readyState == 4) {
+		var percent = event.offsetX / this.offsetWidth;
+		player.currentTime = percent * player.duration;
+	} else {
+		player.play().then(() => {
+			player.pause()
+			var percent = event.offsetX / this.offsetWidth;
+			player.currentTime = percent * player.duration;
+		})
+	}
+
 }
 
 function convertHMS(pSec) {
@@ -94,12 +110,24 @@ function convertHMS(pSec) {
 }
 
 function jumpTime(event) {
-    player = document.getElementById("audiosound");
-    if (event.target.attributes["sens"].value == "+") {
-    player.currentTime = player.currentTime + 10
-    } else {
-    player.currentTime = player.currentTime - 10
-    }
+    if (player.readyState == 4) {
+		if (event.target.attributes["sens"].value == "+") {
+			player.currentTime = player.currentTime + 10
+		} else {
+			player.currentTime = player.currentTime - 10
+		}
+	} else {
+		player.play().then(() => {
+			player.pause()
+		})
+
+		if (event.target.attributes["sens"].value == "+") {
+			player.currentTime = player.currentTime + 10
+		} else {
+			player.currentTime = player.currentTime - 10
+		}
+	}
+
 }
 
 function addZero(val) {

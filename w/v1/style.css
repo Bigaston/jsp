@@ -29,7 +29,7 @@ body {
 }
 
 #progressbar {
-    text-align: left;
+	text-align: left;
     height: 10px;
     background-color: #BFC9CA;
     border-radius: 3px;
@@ -43,7 +43,8 @@ body {
 #prog {
     background-color: var(--bar-color);
     height: 10px;
-    border-radius: 3px;
+	border-radius: 3px;
+	width: 0;
 }
 .time {
     display: flex;
@@ -78,7 +79,9 @@ body {
 
 #eptitle {
     font-size: 20px;
-    font-weight: bold;
+	font-weight: bold;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 #podtitle {

@@ -1,10 +1,11 @@
 const CORS_PROXY = "https://cors.bigaston.dev/"
-const WIDGET_HOST = "https://bigaston.github.io/jsp/w/v1/w.html";
+const WIDGET_HOST = "https://jsp.bigaston.dev/w/v1/w.html";
 
 let ep_title;
 let pod_title;
 let ep_img;
 let audio_url;
+let ep_duration;
 
 let ep_tab = [];
 let select_ep = document.getElementById('episode')
@@ -20,10 +21,13 @@ function fetchFeed() {
         pod_title = feed.title;
 
         feed.items.forEach((entry, index) => {
+			if (entry.enclosure == undefined) return;
+
             let ep_obj = {
                 title: entry.title,
                 audio_url: entry.enclosure.url,
-                img: entry.itunes.image
+				img: entry.itunes.image,
+				duration: entry.itunes.duration
             }
 
             let option = document.createElement("option");
@@ -43,16 +47,18 @@ function generatePlayer() {
 
     ep_title = selected_ep.title;
     audio_url = selected_ep.audio_url;
-    ep_img = selected_ep.img;
+	ep_img = selected_ep.img;
+	ep_duration = selected_ep.duration;
 
     let param = new URLSearchParams();
     param.append("ep_title", ep_title);
     param.append("pod_title", pod_title);
     param.append("ep_img", ep_img);
-    param.append("audio_url", audio_url);
+	param.append("audio_url", audio_url);
+    param.append("ep_duration", ep_duration);
     param.append("bar_color", document.getElementById("bar_color").value)
-    param.append("control_color", document.getElementById("control_color").value)
-
+	param.append("control_color", document.getElementById("control_color").value)
+	
     let encoded = btoa(param.toString());
 
     let widget = `<iframe width="100%" height="120" src="${WIDGET_HOST}#${encoded}" style="border: none;"></iframe>`

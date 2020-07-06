@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Just Simple Player - JSP</title>
+        <link href="./style.css" rel="stylesheet">
+    </head>
+    <body>
+        <audio id="audiosound" hidden></audio>
+        <div id="player">
+            <div id="left">
+                <img id="epimg" alt="cover" />
+            </div>
+            <div id="right">
+                <div id="info">
+                    <p id="eptitle"></p>
+                    <p id="podtitle"></p>
+                </div>
+                <div id="progressbar">
+                    <div id="prog"></div>
+                </div>
+                <div class="time">
+                    <p id="audio-time">00:00:00</p>
+                    <p id="audio-duration">00:00:00</p>
+                </div>
+                <div class="controls">
+                    <i class="timeJump fas fa-backward" sens="-"></i>
+                    <i id="play" class="fas fa-play-circle"></i>
+                    <i class="timeJump fas fa-forward" sens="+"></i>
+                </div>
+            </div>
+        </div>
+
+        <script src="./script.js"></script>
+    </body>
+</html>

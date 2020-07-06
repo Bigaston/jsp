@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Just Simple Podcast - JSP</title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <link href="./static/skeleton.css" rel="stylesheet">
+
+        <meta name="description" content="Un petit player de podcast pensé pour être le plus simple possible.">
+        <meta name="og:title" content="Just Simple Podcast - JSP">
+        <meta name="og:description" content="Un petit player de podcast pensé pour être le plus simple possible.">
+        <meta name="og:url" content="https://jsp.bigaston.dev">
+        <meta name="og:site_name" content="Just Simple Podcast - JSP">
+        <meta name="og:locale" content="fr_fr">
+        <meta name="og:type" content="website">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Just Simple Podcast - JSP</h1>
+            <p>Petit player de Podcast pensé pour être le plus simple possible. Vous entrez les différentes informations de votre podcast ici et vous aurez un lien pour l'intégrer partout.</p>
+
+            <h2>Générateur</h2>
+            <label for="rss_url">Flux RSS</label>
+            <input class="u-full-width" type="url" name="rss_url" id="rss_url"> <button class="button-primary" onclick="fetchFeed()">Rechercher</button>
+            
+            <div id="div_episode" style="display: none;">
+                <label for="episode">Choisissez un épisode</label>
+                <select class="u-full-width" id="episode"></select>
+    
+                <div class="row">
+                    <div class="six columns">
+                        <label for="bar_color">Couleur de la barre</label>
+                        <input type="color" id="bar_color" name="bar_color" value="#3498DB">
+                    </div>
+                    <div class="six columns">
+                        <label for="control_color">Couleur des contrôles</label>
+                        <input type="color" id="control_color" name="control_color" value="#17202A">
+                    </div>
+                </div>
+
+                <button class="button-primary" onclick="generatePlayer()">Générer</button>
+            </div>
+
+            <div id="div_result" style="display: none;">
+                <h2>Résultat</h2>
+                <input type="text" class="u-full-width" readonly id="result" />
+    
+                <div id="display"></div>
+            </div>
+
+            <footer>
+                <p>Outil développé par Bigaston : <a href="https://twitter.com/Bigaston">🐦 Twitter</a> | <a href="https://utip.io/Bigaston">💸 uTip</a> | <a href="https://github.com/Bigaston/jsp">⌨️ Code Source</a></p>
+            </footer>
+        </div>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/rss-parser@3.8.0/dist/rss-parser.min.js"></script>
+        <script src="./static/script.js"></script>
+    </body>
+</html>

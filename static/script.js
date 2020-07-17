@@ -17,6 +17,8 @@ function fetchFeed() {
     parser.parseURL(CORS_PROXY + document.getElementById("rss_url").value, function(err, feed) {
         if (err) throw err;
 
+        let feed_img = feed.image.url;
+
         select_ep.innerHTML = "";
         pod_title = feed.title;
 
@@ -26,7 +28,7 @@ function fetchFeed() {
             let ep_obj = {
                 title: entry.title,
                 audio_url: entry.enclosure.url,
-				img: entry.itunes.image,
+				img: entry.itunes.image != undefined ? entry.itunes.image : feed_img,
 				duration: entry.itunes.duration
             }
 

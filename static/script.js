@@ -1,5 +1,5 @@
 const CORS_PROXY = "https://cors.bigaston.dev/"
-const WIDGET_HOST = "https://jsp.bigaston.dev/w/v1/w.html";
+const WIDGET_HOST = "./w/v1/w.html";
 
 let ep_title;
 let pod_title;
@@ -59,8 +59,9 @@ function generatePlayer() {
 	param.append("audio_url", audio_url);
     param.append("ep_duration", ep_duration);
     param.append("bar_color", document.getElementById("bar_color").value)
-	param.append("control_color", document.getElementById("control_color").value)
-	
+    param.append("control_color", document.getElementById("control_color").value)
+    param.append("disp_img", document.getElementById("disp_img").checked)
+
     let encoded = btoa(param.toString());
 
     let widget = `<iframe width="100%" height="120" src="${WIDGET_HOST}#${encoded}" style="border: none;"></iframe>`

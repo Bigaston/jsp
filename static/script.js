@@ -1,5 +1,5 @@
 const CORS_PROXY = "https://cors.bigaston.dev/"
-const WIDGET_HOST = "./w/v1/w.html";
+const WIDGET_HOST = "https://jsp.bigaston.dev/w/v1/w.html";
 
 let ep_title;
 let pod_title;

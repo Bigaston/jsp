@@ -3,6 +3,7 @@ let pod_title;
 let ep_img;
 let audio_url;
 let ep_duration;
+let disp_img;
 
 let duration = document.getElementById("audio-duration");
 
@@ -34,7 +35,8 @@ function grabInfo() {
     pod_title = param.get("pod_title");
     ep_img = param.get("ep_img");
 	audio_url = param.get("audio_url");
-	ep_duration = param.get("ep_duration")
+    ep_duration = param.get("ep_duration")
+    disp_img = param.get("disp_img") == "true" ? true : false;
 
     document.getElementById("player").style.setProperty("--bar-color", param.get("bar_color"))
     document.getElementById("player").style.setProperty("--control-color", param.get("control_color"))
@@ -44,9 +46,13 @@ function grabInfo() {
 
 function initPlayer() {
     document.getElementById("eptitle").innerHTML = ep_title;
-    document.getElementById("podtitle").innerHTML = pod_title;
+    document.getElementById("podtitle").innerHTML = pod_title + ` <a href="${audio_url}" class="download_link" alt="Télécharger" target="_blank"><i class="fas fa-download"></i></a>`;
     document.getElementById("epimg").src = ep_img;
-	document.getElementById("audiosound").src = audio_url;
+    document.getElementById("audiosound").src = audio_url;
+    
+    if (!disp_img) {
+        document.getElementById("left").style.display = "none";
+    }
 
 	duration.innerHTML = ep_duration;
 }

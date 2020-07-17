@@ -87,3 +87,11 @@ body {
 #podtitle {
     font-style: italic;
 }
+
+.download_link:hover {
+    cursor: pointer;
+}
+
+.download_link > i {
+    color: var(--control-color);
+}

@@ -46,7 +46,7 @@ function grabInfo() {
 
 function initPlayer() {
     document.getElementById("eptitle").innerHTML = ep_title;
-    document.getElementById("podtitle").innerHTML = pod_title;
+    document.getElementById("podtitle").innerHTML = pod_title + ` <a href="${audio_url}" class="download_link" alt="Télécharger" target="_blank"><i class="fas fa-download"></i></a>`;
     document.getElementById("epimg").src = ep_img;
     document.getElementById("audiosound").src = audio_url;
     
